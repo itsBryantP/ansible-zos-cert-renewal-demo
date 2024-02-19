@@ -9,7 +9,7 @@
   environment: "{{ environment_vars }}"
   vars:
     owner_id: 'OMVSKERN'
-    cert_label: 'ANDY CA'
+    cert_label: 'IBM CA'
     cn: '{{cert_label}}'
     ou: 'ANSIBLE CORE'
     country: 'US'
