@@ -35,10 +35,11 @@
       vars:
         task_description: 'Create new SITE cert and connect to keyring'
         command:
-          - RACDCERT SITE GENCERT  SUBJECTSDN(CN('{{cn}}')  OU('{{ou}}') C('{{country}}'))  WITHLABEL('{{cert_label}}')   SIGNWITH(CERTAUTH LABEL('{{sign_label}}'))  NOTAFTER(DATE({{expiry_date}}))
+          - RACDCERT SITE GENCERT  SUBJECTSDN(CN('{{cn}}')  OU('{{ou}}') C('{{country}}'))  WITHLABEL('{{cert_label}}') SIGNWITH(CERTAUTH LABEL('{{sign_label}}')) NOTBEFORE(DATE({{ valid_from_date }})) NOTAFTER(DATE({{expiry_date}}))
           - RACDCERT LISTCHAIN (LABEL('{{cert_label}}')) SITE
           - RACDCERT ID({{owner_id}})  CONNECT(SITE LABEL('{{cert_label}}')  RING({{keyring}}) DEFAULT USAGE(PERSONAL))
           - RACDCERT LISTRING({{keyring}}) ID({{owner_id}})
+          - RACDCERT SITE ALTER(LABEL('{{cert_label}}')) TRUST
       when: not expiry_date == ''
 
     - include_role:
