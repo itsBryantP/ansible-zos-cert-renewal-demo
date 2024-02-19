@@ -8,8 +8,8 @@
   gather_facts: false
   environment: "{{ environment_vars }}"
   vars:
-    system_name: 'EC01129A'
-    user_id: 'OMVSADM OMVSKERN'
+    system_name: 'EC33005A'
+    user_id: 'OMVSADM'
 
   tasks:
     - block:
@@ -27,6 +27,7 @@
               - RDEFINE XFACILIT HZS.{{system_name}}.*.*.MESSAGES UACC(NONE)
               - RDEFINE XFACILIT HZS.{{system_name}}.*.*.RUN UACC(NONE)
               - RDEFINE XFACILIT HZS.{{system_name}}.*.*.QUERY UACC(NONE)
+              - RDEFINE XFACILIT HZS.{{system_name}}.IBMRACF.RACF_CERTIFICATE_EXPIRATION.REFRESH UACC(NONE)
 
         - include_role:
             name: issue_racf_cmd
@@ -42,6 +43,9 @@
               - >
                   PERMIT HZS.{{system_name}}.*.*.QUERY CLASS(XFACILIT) +
                     ID({{ user_id }}) ACCESS(READ)
+              - >
+                  PERMIT HZS.{{system_name}}.IBMRACF.RACF_CERTIFICATE_EXPIRATION.REFRESH +
+                    CLASS(XFACILIT) +  ID({{ user_id }}) ACCESS(CONTROL)
 
         - include_role:
             name: issue_racf_cmd
