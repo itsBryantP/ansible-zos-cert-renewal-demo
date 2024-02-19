@@ -9,12 +9,13 @@
   environment: "{{ environment_vars }}"
   vars:
     owner_id: 'OMVSKERN'
-    cert_label: 'ANDY SITE'
-    sign_label: 'ANDY CA'
+    cert_label: 'TIV3 Cert'
+    sign_label: 'IBM CA'
     cn: '{{cert_label}}.svl.ibm.com'
     ou: '{{cert_label}}'
     country: 'US'
-    expiry_date: '2021-09-28'
+    expiry_date: '2024-02-15'
+    valid_from_date: '2023-02-15'
     keyring: 'SharedRing1'
     check_name: 'IBMRACF,RACF_CERTIFICATE_EXPIRATION'
 
@@ -38,7 +39,7 @@
                OU('{{ou}}') C('{{country}}')) +
                WITHLABEL('{{cert_label}}')  +
                SIGNWITH(CERTAUTH LABEL('{{sign_label}}')) +
-               NOTAFTER(DATE({{expiry_date}}))
+               NOTBEFORE(DATE({{ valid_from_date }})) NOTAFTER(DATE({{expiry_date}}))
           - >
             RACDCERT LISTCHAIN (LABEL('{{cert_label}}')) SITE
           - >
@@ -47,6 +48,9 @@
                RING({{keyring}}) DEFAULT USAGE(PERSONAL))
           - >
             RACDCERT LISTRING({{keyring}}) ID({{owner_id}})
+          - >
+            RACDCERT SITE ALTER(LABEL('{{cert_label}}')) + 
+               TRUST
       when: not expiry_date == ''
 
     - include_role:
@@ -68,6 +72,9 @@
                RING({{keyring}}) DEFAULT USAGE(PERSONAL))
           - >
             RACDCERT LISTRING({{keyring}}) ID({{owner_id}})
+          - >
+            RACDCERT SITE ALTER(LABEL('{{cert_label}}')) + 
+               TRUST
       when: expiry_date == ''
 
     - include_role:
