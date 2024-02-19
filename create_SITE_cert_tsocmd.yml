@@ -9,12 +9,13 @@
   environment: "{{ environment_vars }}"
   vars:
     owner_id: 'OMVSKERN'
-    cert_label: 'ANDY SITE'
-    sign_label: 'ANDY CA'
+    cert_label: 'TIV3 Cert'
+    sign_label: 'IBM CA'
     cn: '{{cert_label}}.svl.ibm.com'
     ou: '{{cert_label}}'
     country: 'US'
-    expiry_date: '2021-12-28'
+    expiry_date: '2024-02-15'
+    valid_from_date: '2023-02-15'
     keyring: 'SharedRing1'
     check_name: 'IBMRACF,RACF_CERTIFICATE_EXPIRATION'
 
