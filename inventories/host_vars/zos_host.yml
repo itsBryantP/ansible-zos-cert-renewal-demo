@@ -15,8 +15,8 @@
 # Note, PYZ and ZOAU environment variables must be configured.
 ################################################################################
 
-PYZ: "path_to_python_installation_on_zos_target"
-ZOAU: "path_to_zoau_installation_on_zos_target"
+PYZ: "/allpython/3.11-3/usr/lpp/IBM/cyp/v3r11/pyz"
+ZOAU: "/zoau/v1.2.5"
 
 ################################################################################
 # Do not configure, variable substituion will correctly set the
