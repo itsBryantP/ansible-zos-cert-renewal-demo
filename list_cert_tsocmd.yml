@@ -8,7 +8,7 @@
   gather_facts: false
   environment: "{{ environment_vars }}"
   vars:
-    # owner_id: 'OMVSADM'
+    owner_id: 'OMVSKERN'
     # cert_type: 'USER'
     # cert_label: 'ANDY SSL'
 
@@ -16,7 +16,8 @@
     # cert_label: 'ANDY CA'
 
     cert_type: 'SITE'
-    cert_label: 'ANDY SITE'
+    cert_label: 'TIV3 Cert'
+
 
   tasks:
     - include_role:
