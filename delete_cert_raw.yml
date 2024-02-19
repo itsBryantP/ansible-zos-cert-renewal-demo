@@ -12,11 +12,11 @@
     # cert_type: 'USER'
     # cert_label: 'ANDY SSL'
 
-    cert_type: 'CERTAUTH'
-    cert_label: 'ANDY CA'
+    # cert_type: 'CERTAUTH'
+    # cert_label: 'ANDY CA'
 
-    # cert_type: 'SITE'
-    # cert_label: 'ANDY SITE'
+    cert_type: 'SITE'
+    cert_label: 'TIV3 Cert'
 
     check_name: 'IBMRACF,RACF_CERTIFICATE_EXPIRATION'
 
