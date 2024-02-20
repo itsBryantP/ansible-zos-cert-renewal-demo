@@ -2,7 +2,7 @@
 # © Copyright IBM Corporation 2020, 2021
 ###############################################################################
 
-- hosts: zos_host
+- hosts: all
   collections:
     - ibm.ibm_zos_core
   gather_facts: false
@@ -45,12 +45,23 @@
           vars:
             hc_check: 'IBMRACF,RACF_CERTIFICATE_EXPIRATION'
 
-        - name: Search for {{ cert_label }} in report
+        - name: Search for IRRH276E in report
           ansible.builtin.set_fact:
             cert_found: true
           with_items: "{{hc_job_output.jobs.0.ddnames}}"
-          when: item.content is search("{{cert_label}}")
+          when: item.content is search("IRRH276E")
+        
+        - name: Search for Expired Cert in output
+          ansible.builtin.set_fact:
+            expired_cert_string: "{{ item }}"
+          with_items: "{{ hc_job_output.hc_job_output.jobs.0.ddnames }}"
+          when: item.content is search("E SITE")
 
+        - ansible.builtin.debug:
+            var: expired_cert_string
+
+        - ansible.builtin.pause:
+    
         - name: Print expiration message
           ansible.builtin.debug:
             msg: "{{ cert_label }} expiring - {{ cert_found }}"
