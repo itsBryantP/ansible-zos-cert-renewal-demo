@@ -11,3 +11,4 @@
 - name: "{{ task_description }}"
   ibm.ibm_zos_core.zos_tso_command:
     commands: "{{command}}"
+  register: tso_cmd_output
