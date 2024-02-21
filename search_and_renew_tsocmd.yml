@@ -12,8 +12,9 @@
     cert_type: 'SITE'  # USER or SITE or CERTAUTH
     sign_with: 'CERTAUTH' # blank or CERTAUTH
     sign_label: 'IBM CA'
-    owner_id: 'OMVSKERN'
+    owner_id: 'ALICIA'
     keyring_name: 'SharedRing1'
+    expiry_date: '2024-02-21'
 
     # cert_label: 'ANDY SSL' # must be 8 char or less
     # cert_type: 'USER'  # USER or SITE or CERTAUTH
@@ -29,6 +30,7 @@
     - name: Create temporary directory to store bank files
       tempfile:
         state: directory
+        path: /tmp
       register: playbook_tmp_dir
 
     - block:
@@ -37,7 +39,7 @@
           vars:
             task_description: 'Run Health Checker'
             command: "F HZSPROC,RUN,CHECK=(IBMRACF,RACF_CERTIFICATE_EXPIRATION)"
-
+          
         - include_role:
             name: print_hc_buffer
           vars:
@@ -100,6 +102,12 @@
               - RACDCERT ID({{owner_id}}) DELETE(LABEL('{{ cert_label }}'))
           when: cert_found and cert_type == 'USER'
 
+        - name: Save new expiration date
+          ansible.builtin.set_fact:
+            new_cert_expiration_date: "{{ item }}"
+          with_items: "{{ tso_cmd_output.output.1.content }}"
+          when: item is search("End Date:")
+
         - include_role:
             name: issue_tso_cmd
           vars:
@@ -109,7 +117,7 @@
               - RACDCERT {{cert_type}} ALTER(LABEL('{{ cert_label}}-NEW')) NEWLABEL('{{ cert_label}}')
               - RACDCERT ID({{owner_id}}) CONNECT({{cert_type}} LABEL('{{cert_label}}')  RING({{keyring_name}}) DEFAULT USAGE(PERSONAL))
           when: cert_found and not sign_label == ' ' and not cert_type == 'USER'
-
+          
         - include_role:
             name: issue_tso_cmd
           vars:
@@ -146,6 +154,10 @@
             task_description: 'Run Health Check'
             command: "F HZSPROC,RUN,CHECK=(IBMRACF,RACF_CERTIFICATE_EXPIRATION)"
           when: cert_found
+
+        - name: Print new certificate expiration date
+          ansible.builtin.debug:
+            var: new_cert_expiration_date
 
       always:
         - name: Delete the temporary directory
