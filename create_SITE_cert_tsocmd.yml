@@ -8,7 +8,7 @@
   gather_facts: false
   environment: "{{ environment_vars }}"
   vars:
-    owner_id: 'OMVSKERN'
+    owner_id: 'ALICIA'
     cert_label: 'TIV3 Cert'
     sign_label: 'IBM CA'
     cn: '{{cert_label}}.svl.ibm.com'
