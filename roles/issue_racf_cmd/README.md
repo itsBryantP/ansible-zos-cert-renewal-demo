@@ -22,7 +22,7 @@ Example Playbook
 ----------------
 
 ```yaml
-- hosts: zos_host
+- hosts: all
   collections:
     - ibm.ibm_zos_core
   gather_facts: no
