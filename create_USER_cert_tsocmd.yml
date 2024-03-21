@@ -12,7 +12,7 @@
     cert_label: 'ANDY SSL'
     sign_label: 'ANDY CA'
     cn: 'www.{{cert_label}}.com'
-    ou: '{{cert_label}}'
+    ou: 'ANSIBLE CORE'
     country: 'US'
     expiry_date: '2021-12-28'
     expiry_time: '00:00:00' # UTC time
