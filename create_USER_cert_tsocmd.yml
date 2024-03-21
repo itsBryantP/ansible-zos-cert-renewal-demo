@@ -47,7 +47,7 @@
       vars:
         task_description: 'Create new local-CA-signed USER cert and connect to keyring'
         command:
-          - RACDCERT GENCERT ID({{owner_id}}) SUBJECTSDN(CN('{{cn}}') OU('{{ou}}') C('{{country}}')) WITHLABEL('{{cert_label}}') SIGNWITH(CERTAUTH LABEL('{{sign_label}}')) NOTAFTER(DATE({{expiry_date}}) TIME({{expiry_time}}) ) ALTNAME(DOMAIN('{{altname')
+          - RACDCERT GENCERT ID({{owner_id}}) SUBJECTSDN(CN('{{cn}}') OU('{{ou}}') C('{{country}}')) WITHLABEL('{{cert_label}}') SIGNWITH(CERTAUTH LABEL('{{sign_label}}')) NOTAFTER(DATE({{expiry_date}}) TIME({{expiry_time}}) ) ALTNAME(DOMAIN('{{altname}}')
           - RACDCERT ID({{owner_id}})  CONNECT(LABEL('{{cert_label}}')  RING({{keyring}}) DEFAULT)
           - RACDCERT LISTRING({{keyring}}) ID({{owner_id}})
           - RACDCERT LISTCHAIN(LABEL('{{cert_label}}')) ID({{owner_id}})
