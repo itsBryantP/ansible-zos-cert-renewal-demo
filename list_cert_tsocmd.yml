@@ -8,15 +8,15 @@
   gather_facts: false
   environment: "{{ environment_vars }}"
   vars:
-    owner_id: 'OMVSKERN'
+    owner_id: 'STCUSR'
     # cert_type: 'USER'
     # cert_label: 'ANDY SSL'
 
     # cert_type: 'CERTAUTH'
     # cert_label: 'ANDY CA'
 
-    cert_type: 'SITE'
-    cert_label: 'TIV3 Cert'
+    cert_type: 'USER'
+    cert_label: 'zosConnectServerCert'
 
 
   tasks:

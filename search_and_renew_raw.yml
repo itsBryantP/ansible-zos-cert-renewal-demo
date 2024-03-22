@@ -66,9 +66,9 @@
             command:
               - >
                   RACDCERT EXPORT(LABEL('{{cert_label}}')) +
-                      DSN('{{ owner_id }}.CERT.{{cert_type}}.BACKUP.{{today}}')
+                      DSN('{{ ansible_user }}.CERT.{{cert_type}}.BACKUP.{{today}}')
               - >
-                  RACDCERT CHECKCERT('{{ owner_id }}.CERT.{{cert_type}}.BACKUP.{{today}}')
+                  RACDCERT CHECKCERT('{{ ansible_user }}.CERT.{{cert_type}}.BACKUP.{{today}}')
           when: cert_found and not cert_type == 'USER'
 
         - include_role:
@@ -79,9 +79,9 @@
             command:
               - >
                   RACDCERT EXPORT(LABEL('{{cert_label}}')) ID({{owner_id}}) +
-                      DSN('{{ owner_id }}.CERT.{{cert_type}}.BACKUP.{{today}}')
+                      DSN('{{ ansible_user }}.CERT.{{cert_type}}.BACKUP.{{today}}')
               - >
-                  RACDCERT CHECKCERT('{{ owner_id }}.CERT.{{cert_type}}.BACKUP.{{today}}') +
+                  RACDCERT CHECKCERT('{{ ansible_user }}.CERT.{{cert_type}}.BACKUP.{{today}}') +
                       ID({{owner_id}})
           when: cert_found and cert_type == 'USER'
 
@@ -97,7 +97,7 @@
                   RACDCERT {{cert_type}} LIST(LABEL('{{cert_label}}-NEW'))
               - >
                   RACDCERT {{cert_type}} GENREQ (LABEL('{{cert_label}}-NEW')) +
-                    DSN('{{ owner_id }}.CSR.{{cert_type}}.{{today}}')
+                    DSN('{{ ansible_user }}.CSR.{{cert_type}}.{{today}}')
               - >
                   RACDCERT {{cert_type}} DELETE(LABEL('{{ cert_label }}'))
           when: cert_found and not cert_type == 'USER'
@@ -115,7 +115,7 @@
               - >
                   RACDCERT GENREQ (LABEL('{{cert_label}}-NEW')) +
                     ID({{owner_id}}) +
-                    DSN('{{ owner_id }}.CSR.{{cert_type}}.{{today}}')
+                    DSN('{{ ansible_user }}.CSR.{{cert_type}}.{{today}}')
               - >
                   RACDCERT ID({{owner_id}}) DELETE(LABEL('{{ cert_label }}'))
           when: cert_found and cert_type == 'USER'
@@ -127,7 +127,7 @@
             command:
               - >
                   RACDCERT {{cert_type}} +
-                     GENCERT('{{ owner_id }}.CSR.{{cert_type}}.{{today}}') +
+                     GENCERT('{{ ansible_user }}.CSR.{{cert_type}}.{{today}}') +
                      SIGNWITH({{sign_with}} LABEL('{{sign_label}}'))
               - >
                   RACDCERT {{cert_type}} ALTER(LABEL('{{ cert_label}}-NEW')) +
@@ -145,7 +145,7 @@
             command:
               - >
                   RACDCERT ID({{owner_id}}) +
-                     GENCERT('{{ owner_id }}.CSR.{{cert_type}}.{{today}}') +
+                     GENCERT('{{ ansible_user }}.CSR.{{cert_type}}.{{today}}') +
                      SIGNWITH({{sign_with}} LABEL('{{sign_label}}'))
               - >
                   RACDCERT ID({{ owner_id}}) ALTER(LABEL('{{ cert_label}}-NEW')) +
@@ -163,7 +163,7 @@
             command:
               - >
                   RACDCERT {{cert_type}} +
-                     GENCERT('{{ owner_id }}.CSR.{{cert_type}}.{{today}}') +
+                     GENCERT('{{ ansible_user }}.CSR.{{cert_type}}.{{today}}') +
                      SIGNWITH({{sign_with}} LABEL('{{cert_label}}NEW'))
               - >
                   RACDCERT {{cert_type}} ALTER(LABEL('{{ cert_label}}-NEW')) +
@@ -181,7 +181,7 @@
             command:
               - >
                   RACDCERT ID({{owner_id}}) +
-                     GENCERT('{{ owner_id }}.CSR.{{cert_type}}.{{today}}') +
+                     GENCERT('{{ ansible_user }}.CSR.{{cert_type}}.{{today}}') +
                      SIGNWITH({{sign_with}} LABEL('{{cert_label}}NEW'))
               - >
                   RACDCERT ID({{ owner_id}}) ALTER(LABEL('{{ cert_label}}-NEW')) +
