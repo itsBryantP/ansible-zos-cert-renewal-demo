@@ -1,0 +1,22 @@
+###############################################################################
+# © Copyright IBM Corporation 2020, 2021
+###############################################################################
+
+- hosts: all
+  collections:
+    - ibm.ibm_zos_core
+  gather_facts: false
+  environment: "{{ environment_vars }}"
+  vars:
+    owner_id: 'STCUSR'
+    cert_serial: ''
+
+
+  tasks:
+    - include_role:
+        name: issue_tso_cmd
+      vars:
+        task_description: 'Displaying cert {{cert_serial}}'
+        command:
+          - RACDCERT ID({{ owner_id}}) LIST(SERIALNUMBER({{cert_serial}}))
+      register: cmd_output
