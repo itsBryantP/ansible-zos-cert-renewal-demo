@@ -50,7 +50,7 @@
             cert_found: true
           with_items: "{{hc_job_output.jobs.0.ddnames}}"
           # when: cert_label in item.content
-          when: item.content is search("{{cert_label}}")
+          when: item.content is search(cert_label)
 
         - debug: msg="{{cert_label}} expiring - {{cert_found}}"
 
