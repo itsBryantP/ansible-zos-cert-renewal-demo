@@ -11,3 +11,4 @@
 - name: "{{ task_description }}"
   ibm.ibm_zos_core.zos_operator:
     cmd: "{{command}}"
+  register: zos_operator_output
