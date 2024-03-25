@@ -39,6 +39,7 @@
           - RACDCERT GENCERT ID({{owner_id}}) SUBJECTSDN(CN('{{cn}}') OU('{{ou}}') C('{{country}}')) WITHLABEL('{{cert_label}}') NOTAFTER(DATE({{expiry_date}}) TIME({{expiry_time}}) ) ALTNAME({{altname}})
           - RACDCERT ID({{owner_id}}) CONNECT(LABEL('{{cert_label}}') RING({{keyring}}) DEFAULT)
           - RACDCERT LISTRING({{keyring}}) ID({{owner_id}})
+          - RACDCERT ID({{owner_id) ALTER(LABEL('{{cert_label}}')) TRUST
           - RACDCERT LISTCHAIN(LABEL('{{cert_label}}')) ID({{owner_id}})
       when: sign_label == ' ' and not expiry_date == ''
 
@@ -50,6 +51,7 @@
           - RACDCERT GENCERT ID({{owner_id}}) SUBJECTSDN(CN('{{cn}}') OU('{{ou}}') C('{{country}}')) WITHLABEL('{{cert_label}}') SIGNWITH(CERTAUTH LABEL('{{sign_label}}')) NOTAFTER(DATE({{expiry_date}}) TIME({{expiry_time}}) ) ALTNAME({{altname}})
           - RACDCERT ID({{owner_id}})  CONNECT(LABEL('{{cert_label}}')  RING({{keyring}}) DEFAULT)
           - RACDCERT LISTRING({{keyring}}) ID({{owner_id}})
+          - RACDCERT ID({{owner_id) ALTER(LABEL('{{cert_label}}')) TRUST
           - RACDCERT LISTCHAIN(LABEL('{{cert_label}}')) ID({{owner_id}})
       when: not sign_label == ' ' and not expiry_date == ''
 
@@ -61,6 +63,7 @@
           - RACDCERT GENCERT ID({{owner_id}})  SUBJECTSDN(CN('{{cn}}')  OU('{{ou}}') C('{{country}}'))  WITHLABEL('{{cert_label}}') ALTNAME({{altname}})
           - RACDCERT ID({{owner_id}}) CONNECT(LABEL('{{cert_label}}') RING({{keyring}}) DEFAULT)
           - RACDCERT LISTRING({{keyring}}) ID({{owner_id}})
+          - RACDCERT ID({{owner_id) ALTER(LABEL('{{cert_label}}')) TRUST
           - RACDCERT LISTCHAIN(LABEL('{{cert_label}}')) ID({{owner_id}})
       when: sign_label == ' ' and expiry_date == ''
 
@@ -72,6 +75,7 @@
           - RACDCERT GENCERT ID({{owner_id}}) SUBJECTSDN(CN('{{cn}}') OU('{{ou}}') C('{{country}}')) WITHLABEL('{{cert_label}}') SIGNWITH(CERTAUTH LABEL('{{sign_label}}')) ALTNAME({{altname}})
           - RACDCERT ID({{owner_id}}) CONNECT(LABEL('{{cert_label}}') RING({{keyring}}) DEFAULT)
           - RACDCERT LISTRING({{keyring}}) ID({{owner_id}})
+          - RACDCERT ID({{owner_id) ALTER(LABEL('{{cert_label}}')) TRUST
           - RACDCERT LISTCHAIN (LABEL('{{cert_label}}')) ID({{owner_id}})
       when: not sign_label == ' ' and expiry_date == ''
 
