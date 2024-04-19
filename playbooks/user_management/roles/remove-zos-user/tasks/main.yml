@@ -53,11 +53,11 @@
   ansible.builtin.command: /usr/sbin/unmount {{ omvs_home_directory }}
   when: stat_response.stat.isdir is defined and stat_response.stat.isdir
 
-- name: Remove the user's ZFS data set
-  ibm.ibm_zos_core.zos_data_set:
-    name: "{{ omvs_zfs_data_set_name }}"
-    state: absent
-  when: omvs_zfs_data_set_name is defined
+# - name: Remove the user's ZFS data set
+#   ibm.ibm_zos_core.zos_data_set:
+#     name: "{{ omvs_zfs_data_set_name }}"
+#     state: absent
+#   when: omvs_zfs_data_set_name is defined
 
 - name: Remove the user's omvs directory
   ansible.builtin.file:
