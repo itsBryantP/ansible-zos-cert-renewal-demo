@@ -57,6 +57,7 @@
   ibm.ibm_zos_core.zos_data_set:
     name: "{{ omvs_zfs_data_set_name }}"
     state: absent
+  when: omvs_zfs_data_set_name is defined
 
 - name: Remove the user's omvs directory
   ansible.builtin.file:
