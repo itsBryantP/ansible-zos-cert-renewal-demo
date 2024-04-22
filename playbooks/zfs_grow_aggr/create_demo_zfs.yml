@@ -32,7 +32,6 @@
   vars:
     zfs_dsn: "ALICIA.WXO.ZFS"
     mount_point: "/tmp/wxo"
-    aggr_growth_size: 2000
   tasks:
 
     # ##########################################################################
