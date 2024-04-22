@@ -55,29 +55,29 @@
     # Create and Mount ZFS data set.
     # ##########################################################################
 
-    - name: Create ZFS.
-      zos_data_set:
-        name: "{{ zfs_dsn }}"
-        type: zfs
-        space_primary: 1
-        space_type: M
-        replace: true
+    # - name: Create ZFS.
+    #   zos_data_set:
+    #     name: "{{ zfs_dsn }}"
+    #     type: zfs
+    #     space_primary: 1
+    #     space_type: M
+    #     replace: true
 
-    - name: Create mount dir on z/OS USS.
-      file:
-        path: "{{ mount_point }}"
-        state: directory
+    # - name: Create mount dir on z/OS USS.
+    #   file:
+    #     path: "{{ mount_point }}"
+    #     state: directory
 
-    - name: Mount ZFS data set.
-      command: /usr/sbin/mount -t zfs -f {{ zfs_dsn | upper }} {{ mount_point }}
+    # - name: Mount ZFS data set.
+    #   command: /usr/sbin/mount -t zfs -f {{ zfs_dsn | upper }} {{ mount_point }}
 
-    - name: Confirm mount point.
-      command: "df /{{ mount_point }}"
-      register: df_output
+    # - name: Confirm mount point.
+    #   command: "df /{{ mount_point }}"
+    #   register: df_output
 
-    - name: Echo df output.
-      debug:
-        msg: "{{ df_output.stdout_lines }}"
+    # - name: Echo df output.
+    #   debug:
+    #     msg: "{{ df_output.stdout_lines }}"
 
     # ##########################################################################
     # 1. Fill up ZFS aggregate with random data.
@@ -86,16 +86,16 @@
     # 4. Get post-growth aggrinfo (and print to console).
     # ##########################################################################
 
-    - name: Write 1 million bytes to ZFS.
-      shell: head -c 1000000 /dev/urandom > {{ mount_point }}/test.txt
+    # - name: Write 1 million bytes to ZFS.
+    #   shell: head -c 1000000 /dev/urandom > {{ mount_point }}/test.txt
 
-    - name: Get aggregate info BEFORE growth.
-      command: zfsadm aggrinfo {{ zfs_dsn | upper }}
-      register: aggrinfo_output_before
+    # - name: Get aggregate info BEFORE growth.
+    #   command: zfsadm aggrinfo {{ zfs_dsn | upper }}
+    #   register: aggrinfo_output_before
 
-    - name: Get percentage use BEFORE growth.
-      shell: "df -kP {{ mount_point }}"
-      register: df_output_before
+    # - name: Get percentage use BEFORE growth.
+    #   shell: "df -kP {{ mount_point }}"
+    #   register: df_output_before
 
     # - name: Grow ZFS aggregate.
     #   command: zfsadm grow -aggregate {{ zfs_dsn }} -size "{{ aggr_growth_size }}"
@@ -113,11 +113,11 @@
     #   shell: "df -kP {{ mount_point }}"
     #   register: df_output_after
 
-    - name: Echo aggrinfo_output and percent-use
-      debug:
-        msg:
-          - "{{ aggrinfo_output_before.stdout_lines }}"
-          - "{{ df_output_before.stdout_lines }}"
+    # - name: Echo aggrinfo_output and percent-use
+    #   debug:
+    #     msg:
+    #       - "{{ aggrinfo_output_before.stdout_lines }}"
+    #       - "{{ df_output_before.stdout_lines }}"
     #       - "AFTER:"
     #       - "{{ aggrinfo_output_after.stdout_lines }}"
     #       - "{{ df_output_after.stdout_lines }}"
@@ -126,10 +126,10 @@
     # clean up - unmount and delete ZFS data sets
     # ##########################################################################
 
-    # - name: Unmount ZFS data set.
-    #   command: "/usr/sbin/unmount {{ mount_point }}"
+    - name: Unmount ZFS data set.
+      command: "/usr/sbin/unmount {{ mount_point }}"
 
-    # - name: Delete ZFS data set.
-    #   zos_data_set:
-    #     name: "{{ zfs_dsn }}"
-    #     state: absent
+    - name: Delete ZFS data set.
+      zos_data_set:
+        name: "{{ zfs_dsn }}"
+        state: absent
