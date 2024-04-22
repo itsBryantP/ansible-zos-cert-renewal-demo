@@ -13,11 +13,11 @@
     # target_password is not defined or
     # target_password == ""
 
-# - name: Estimate the total used size of all provided data sets
-#   ansible.builtin.include_role:
-#     name: get-estimated-size-of-data-sets
-#   vars:
-#     data_sets: "{{ data_sets_to_dump }}"
+- name: Estimate the total used size of all provided data sets
+  ansible.builtin.include_role:
+    name: get-estimated-size-of-data-sets
+  vars:
+    data_sets: "{{ data_sets_to_dump }}"
 
 - block:
     # - name: Create data set for archive
