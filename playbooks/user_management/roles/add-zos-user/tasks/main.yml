@@ -170,17 +170,17 @@
 #       ansible.builtin.fail:
 #         msg: "Persistent mount updated did not pass syntax check."
 #       when: syntaxcheck_response.get("rc", 4) > 0
-  always:
-    - name: Remove temporary file
-      ansible.builtin.file:
-        path: "{{ temp.path }}"
-        state: absent
-      when: temp.path is defined and temp.path
-    - name: Remove backup file
-      ansible.builtin.file:
-        path: "{{ backup.path }}"
-        state: absent
-      when: backup.path is defined and backup.path
+  # always:
+  #   - name: Remove temporary file
+  #     ansible.builtin.file:
+  #       path: "{{ temp.path }}"
+  #       state: absent
+  #     when: temp.path is defined and temp.path
+  #   - name: Remove backup file
+  #     ansible.builtin.file:
+  #       path: "{{ backup.path }}"
+  #       state: absent
+  #     when: backup.path is defined and backup.path
 
 - name: Print password info
   ansible.builtin.debug:
