@@ -56,34 +56,34 @@
   with_items: "{{ groups_to_connect }}"
   when: groups_to_connect is defined and groups_to_connect and groups_to_connect | length > 0
 
-- name: Define alias for user ID
-  ibm.ibm_zos_core.zos_tso_command:
-    commands: "{{ lookup('template', '../templates/define-alias.j2') }}"
+# - name: Define alias for user ID
+#   ibm.ibm_zos_core.zos_tso_command:
+#     commands: "{{ lookup('template', '../templates/define-alias.j2') }}"
 
-- name: Create the users ISPPROF data set
-  ibm.ibm_zos_core.zos_data_set:
-    name: "{{ userid }}.SPF.ISPPROF"
-    state: present
-    type: pds
-    space_primary: 2
-    space_secondary: 1
-    space_type: trk
-    block_size: 3120
-    record_length: 80
+# - name: Create the users ISPPROF data set
+#   ibm.ibm_zos_core.zos_data_set:
+#     name: "{{ userid }}.SPF.ISPPROF"
+#     state: present
+#     type: pds
+#     space_primary: 2
+#     space_secondary: 1
+#     space_type: trk
+#     block_size: 3120
+#     record_length: 80
 
-- name: Create LDS for ZFS data set
-  ibm.ibm_zos_core.zos_data_set:
-    name: "{{ omvs_zfs_data_set_name }}"
-    state: present
-    replace: true
-    type: lds
-    space_primary: "{{ omvs_zfs_data_set_size if omvs_zfs_data_set_size else '50' }}"
-    space_secondary: "{{ omvs_zfs_data_set_size if omvs_zfs_data_set_size else '50' }}"
-    space_type: cyl
-  register: lds_create_response
+# - name: Create LDS for ZFS data set
+#   ibm.ibm_zos_core.zos_data_set:
+#     name: "{{ omvs_zfs_data_set_name }}"
+#     state: present
+#     replace: true
+#     type: lds
+#     space_primary: "{{ omvs_zfs_data_set_size if omvs_zfs_data_set_size else '50' }}"
+#     space_secondary: "{{ omvs_zfs_data_set_size if omvs_zfs_data_set_size else '50' }}"
+#     space_type: cyl
+#   register: lds_create_response
 
-- name: Format LDS as ZFS
-  ansible.builtin.command: zfsadm format -aggregate {{ omvs_zfs_data_set_name }}
+# - name: Format LDS as ZFS
+#   ansible.builtin.command: zfsadm format -aggregate {{ omvs_zfs_data_set_name }}
 
 - name: Create user's omvs directory if it does not exist
   ansible.builtin.file:
