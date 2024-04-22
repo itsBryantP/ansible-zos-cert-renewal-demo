@@ -1,5 +1,5 @@
 - name: Provision IMS Catalog
-  hosts: zsystem
+  hosts: all
   collections:
     - ibm.ibm_zos_core
     - ibm.ibm_zos_ims

@@ -5,8 +5,7 @@
 - name: Raise error if required variables are not set
   ansible.builtin.fail:
     msg: Missing at least one required variable.
-  failed_when: data_sets_to_dump is not defined or
-    # data_sets_to_dump|length == 0 or
+  failed_when: data_sets_to_dump is not defined or data_sets_to_dump|length == 0
     # target_hostname is not defined or
     # target_hostname == "" or
     # target_user is not defined or

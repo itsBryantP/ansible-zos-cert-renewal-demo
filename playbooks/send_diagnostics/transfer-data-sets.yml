@@ -7,7 +7,7 @@
 #     - IBM z/OS core collection 1.2.0 or later
 ###############################################################################
 
-- hosts: source_system
+- hosts: all
   collections:
     - ibm.ibm_zos_core
   gather_facts: false
@@ -19,7 +19,7 @@
         name: dump-pack-ftp-data-sets
         public: true
 
-- hosts: destination_system
+- hosts: all
   collections:
     - ibm.ibm_zos_core
   gather_facts: false
