@@ -30,6 +30,7 @@
   gather_facts: false
   environment: "{{ environment_vars }}"
   vars:
+    zfs_dsn: ""
     mount_point: "/tmp/wxo"
     aggr_growth_size: 2000
   tasks:
