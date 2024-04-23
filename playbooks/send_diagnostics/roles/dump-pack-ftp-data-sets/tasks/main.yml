@@ -132,7 +132,7 @@
                     - "PASSWORD=anonymous "
                     - "TARGET_SYS=testcase.boulder.ibm.com "
                     - "TARGET_DSN=wxo.testfile "
-                    - "WORK_DSN=wes.ftpout "
+                    - "WORK_DSN=alicia.ftpout "
                     - "CC_FTP=03 "
                     - "WORK_DSN_SIZE=500 "
                     - "DIRECTORY=/toibm/mvs/ "
