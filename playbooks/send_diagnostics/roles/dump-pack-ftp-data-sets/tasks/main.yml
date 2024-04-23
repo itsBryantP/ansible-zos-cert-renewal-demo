@@ -126,24 +126,31 @@
                   return_content:
                     type: text
               - dd_input:
+                  dd_name: ceeopts
+                  content: 
+                    - "HEAP(32768,32768,ANYWHERE,FREE,8192,4096),"
+                    - "ENVAR(GGSK_V3_CIPHER_SPECS=9D3D9C3C,"
+                    - "GSK_PROTOCOL_TLSV1_2=ON)"
+              - dd_input:
                   dd_name: input
                   content: 
-                    - "USERID=anonymous "
-                    - "PASSWORD=anonymous "
+                    - "USERID=E-lRKb6R5i1G "
+                    - "PASSWORD=vSFk-tS6T-yJjA-m3Jm-4eqj "
                     - "TARGET_SYS=testcase.boulder.ibm.com "
-                    - "TARGET_DSN=wxo.testfile "
-                    - "WORK_DSN=alicia.ftpout "
-                    - "CC_FTP=03 "
-                    - "WORK_DSN_SIZE=500 "
+                    - "TARGET_DSN=WXO.TESTFILE "
+                    - "CC_HTTPS=03 "
+                    - "WORK_DSN_SIZE=100 "
                     - "DIRECTORY=/toibm/mvs/ "
                     - "CASE=TS012345678 "
+                    - "USE_HTTPS=Y "
+                    - "HTTPS_KEYRING=VANWAG/SHARESMPE "
                   
-          register: ftp_response
-          failed_when: ftp_response.ret_code.code > 0
+          register: https_response
+          failed_when: https_response.ret_code.code > 0
       always:
         - ansible.builtin.debug:
-            var: ftp_response
-          when: ftp_response is defined
+            var: https_response
+          when: https_response is defined
   # always:
   #   # - name: Clean up archive data set
   #   #   ibm.ibm_zos_core.zos_data_set:
