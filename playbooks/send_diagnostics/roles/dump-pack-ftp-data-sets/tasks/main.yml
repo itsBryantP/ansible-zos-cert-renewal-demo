@@ -119,7 +119,7 @@
             dds:
               - dd_data_set:
                   dd_name: sysut1
-                  data_set_name: "{{ terse_data_set_final }}"
+                  data_set_name: "{{ terse_data_set_final.get('names')[0] }}"
                   disposition: shr
               - dd_output:
                   dd_name: sysprint
