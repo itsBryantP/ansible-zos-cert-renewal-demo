@@ -78,7 +78,7 @@
             dds:
               - dd_data_set:
                   dd_name: sysut1
-                  data_set_name: "{{ archive_data_set_final.get('names')[0] }}"
+                  data_set_name: "{{ data_sets_to_dump }}"
                   disposition: shr
               - dd_data_set:
                   dd_name: sysut2
