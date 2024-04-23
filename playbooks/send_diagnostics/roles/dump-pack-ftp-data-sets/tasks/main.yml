@@ -127,16 +127,16 @@
                     type: text
               - dd_input:
                   dd_name: input
-                  content: |
-                    " USERID=anonymous
-                      PASSWORD=anonymous
-                      TARGET_SYS=testcase.boulder.ibm.com
-                      TARGET_DSN=wxo.testfile
-                      WORK_DSN=wes.ftpout
-                      CC_FTP=03
-                      WORK_DSN_SIZE=500
-                      DIRECTORY=/toibm/mvs/
-                      CASE=TS012345678 "
+                  content: 
+                    - "  USERID=anonymous "
+                    - "  PASSWORD=anonymous "
+                    - "  TARGET_SYS=testcase.boulder.ibm.com "
+                    - "  TARGET_DSN=wxo.testfile "
+                    - "  WORK_DSN=wes.ftpout "
+                    - "  CC_FTP=03 "
+                    - "  WORK_DSN_SIZE=500 "
+                    - "  DIRECTORY=/toibm/mvs/ "
+                    - "  CASE=TS012345678 "
                   
           register: ftp_response
           failed_when: ftp_response.ret_code.code > 0
