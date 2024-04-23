@@ -144,14 +144,14 @@
         - ansible.builtin.debug:
             var: ftp_response
           when: ftp_response is defined
-  always:
-    # - name: Clean up archive data set
-    #   ibm.ibm_zos_core.zos_data_set:
-    #     name: "{{ archive_data_set_final.get('names')[0] }}"
-    #     state: absent
-    #   when: delete and archive_data_set_final is defined and archive_data_set_final|length > 0
-    # - name: Clean up terse data set
-    #   ibm.ibm_zos_core.zos_data_set:
-    #     name: "{{ terse_data_set_final.get('names')[0] }}"
-    #     state: absent
-    #   when: delete and terse_data_set_final is defined and terse_data_set_final|length > 0
+  # always:
+  #   # - name: Clean up archive data set
+  #   #   ibm.ibm_zos_core.zos_data_set:
+  #   #     name: "{{ archive_data_set_final.get('names')[0] }}"
+  #   #     state: absent
+  #   #   when: delete and archive_data_set_final is defined and archive_data_set_final|length > 0
+  #   - name: Clean up terse data set
+  #     ibm.ibm_zos_core.zos_data_set:
+  #       name: "{{ terse_data_set_final.get('names')[0] }}"
+  #       state: absent
+  #     when: delete and terse_data_set_final is defined and terse_data_set_final|length > 0
