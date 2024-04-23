@@ -126,13 +126,13 @@
                   return_content:
                     type: text
               - dd_input:
-                  dd_name: ceeopts
+                  dd_name: "CEEOPTS"
                   content: 
                     - "HEAP(32768,32768,ANYWHERE,FREE,8192,4096),"
                     - "ENVAR(GGSK_V3_CIPHER_SPECS=9D3D9C3C,"
                     - "GSK_PROTOCOL_TLSV1_2=ON)"
               - dd_input:
-                  dd_name: input
+                  dd_name: "SYSIN"
                   content: 
                     - "USERID=E-lRKb6R5i1G "
                     - "PASSWORD=vSFk-tS6T-yJjA-m3Jm-4eqj "
