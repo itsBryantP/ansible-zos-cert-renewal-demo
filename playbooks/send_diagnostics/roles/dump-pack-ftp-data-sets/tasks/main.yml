@@ -14,7 +14,7 @@
     target_password is not defined or
     target_password|length == 0 or
     target_case_number is not defined or
-    target_case_numbe|length == 0 or
+    target_case_number|length == 0 or
     https_keyring is not defined or
     https_keyring|length == 0 
 
