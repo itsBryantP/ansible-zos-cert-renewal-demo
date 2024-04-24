@@ -5,13 +5,18 @@
 - name: Raise error if required variables are not set
   ansible.builtin.fail:
     msg: Missing at least one required variable.
-  failed_when: data_sets_to_dump is not defined or data_sets_to_dump|length == 0
-    # target_hostname is not defined or
-    # target_hostname == "" or
-    # target_user is not defined or
-    # target_user == "" or
-    # target_password is not defined or
-    # target_password == ""
+  failed_when: data_sets_to_dump is not defined or 
+    data_sets_to_dump|length == 0 or 
+    data_sets_type is not defined or 
+    data_sets_type|length == 0 or 
+    target_user is not defined or
+    target_user|length == 0 or
+    target_password is not defined or
+    target_password|length == 0 or
+    target_case_number is not defined or
+    target_case_numbe|length == 0 or
+    https_keyring is not defined or
+    https_keyring|length == 0 
 
 # - name: Estimate the total used size of all provided data sets
 #   ansible.builtin.include_role:
@@ -134,16 +139,16 @@
               - dd_input:
                   dd_name: "SYSIN"
                   content: 
-                    - "USERID=E-lRKb6R5i1G "
-                    - "PASSWORD=vSFk-tS6T-yJjA-m3Jm-4eqj "
+                    - "USERID={{target_user}} "
+                    - "PASSWORD={{target_password}} "
                     - "TARGET_SYS=testcase.boulder.ibm.com "
-                    - "TARGET_DSN=WXO.TESTFILE "
+                    - "TARGET_DSN={{data_sets_type}} "
                     - "CC_HTTPS=03 "
                     - "WORK_DSN_SIZE=100 "
                     - "DIRECTORY=/toibm/mvs/ "
-                    - "CASE=TS012345678 "
+                    - "CASE={{target_case_number}} "
                     - "USE_HTTPS=Y "
-                    - "HTTPS_KEYRING=VANWAG/SHARESMPE "
+                    - "HTTPS_KEYRING={{https_keyring}} "
                   
           register: https_response
           failed_when: https_response.ret_code.code > 0
