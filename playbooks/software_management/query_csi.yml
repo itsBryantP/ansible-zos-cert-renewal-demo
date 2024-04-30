@@ -25,7 +25,7 @@
       ptf: 'UI70435'
       global_csi: 'IMSTESTL.ZOAU100.CSI'
       zone: GLOBAL
-      list_operands: 'SYSMOD({{ ptf }}) HOLDDATA .'
+      list_operands: 'SYSMOD({{ ptf }}) .'
       # ptf: 'UI70435'
       # global_csi: 'IMSTESTL.ZOAU100.CSI'
       # zone: TGT
