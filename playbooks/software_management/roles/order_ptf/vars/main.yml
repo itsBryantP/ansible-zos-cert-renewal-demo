@@ -6,7 +6,7 @@ smpe_root: '/var/zoau100'
 server_info:
   - '<ORDERSERVER'
   - '  url="https://eccgw01.boulder.ibm.com/services/projects/ecc/ws"'
-  - '  keyring="SMPERING"'
+  - '  keyring="VANWAG/SHARESMPE"'
   - '  certificate="SMPE Client Certificate">'
   - '</ORDERSERVER>'
 client_info:
