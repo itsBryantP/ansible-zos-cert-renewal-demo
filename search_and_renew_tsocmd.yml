@@ -107,7 +107,7 @@
           ansible.builtin.set_fact:
             new_cert_expiration_date: "{{ item }}"
           with_items: "{{ tso_cmd_output.output.1.content }}"
-          when: tso_cmd_output and item is search("End Date:")
+          when: tso_cmd_output is defined and item is search("End Date:")
 
         - include_role:
             name: issue_tso_cmd
