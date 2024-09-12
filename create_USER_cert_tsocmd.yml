@@ -9,7 +9,7 @@
   environment: "{{ environment_vars }}"
   vars:
     owner_id: 'STCUSR'
-    cert_label: 'zosConnectServerCert'
+    cert_label: 'zosConnectServerCert2'
     sign_label: 'IBM CA'
     cn: 'share.centers.ihost.com:19080'
     altname: 'IP(192.148.8.225)'

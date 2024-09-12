@@ -8,20 +8,13 @@
   gather_facts: false
   environment: "{{ environment_vars }}"
   vars:
-    cert_label: 'zosConnectServerCert' # must be 8 char or less
+    cert_label: 'zosConnectServerCert2' # must be 8 char or less
     cert_type: 'USER'  # USER or SITE or CERTAUTH
     sign_with: 'CERTAUTH' # blank or CERTAUTH
     sign_label: 'IBM CA'
     owner_id: 'STCUSR'
     keyring_name: 'Keyring.ZOSCONN'
     expiry_date: '2025-12-31'
-
-    # cert_label: 'ANDY SSL' # must be 8 char or less
-    # cert_type: 'USER'  # USER or SITE or CERTAUTH
-    # sign_with: 'CERTAUTH' # blank or CERTAUTH
-    # sign_label: 'ANDY CA'
-    # owner_id: 'OMVSADM'
-    # keyring_name: 'WEBSSL'
 
     cert_found: false
     today: ''
