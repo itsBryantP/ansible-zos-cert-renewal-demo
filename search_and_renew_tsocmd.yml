@@ -8,7 +8,7 @@
   gather_facts: false
   environment: "{{ environment_vars }}"
   vars:
-    cert_label: 'zosConnectServerCert2' # must be 8 char or less
+    cert_label: 'zosConnectServerCert' # must be 8 char or less
     cert_type: 'USER'  # USER or SITE or CERTAUTH
     sign_with: 'CERTAUTH' # blank or CERTAUTH
     sign_label: 'IBM CA'
