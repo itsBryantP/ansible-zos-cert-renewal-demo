@@ -23,7 +23,7 @@
         # location: DATA_SET
         # wait: true
         src: '{{ uss_file_path }}/HZSPRINT.J2'
-        location: USS
+        location: uss
         wait: true
       register: hc_job_output
 
