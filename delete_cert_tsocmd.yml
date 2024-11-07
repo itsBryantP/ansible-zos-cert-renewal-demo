@@ -45,6 +45,11 @@
           - RACDCERT SITE DELETE(LABEL('{{cert_label}}'))
       when: cert_type == 'SITE'
 
+    - name: Issue setropts refresh
+      tags: refresh
+      ibm.ibm_zos_core.zos_tso_command:
+        commands: SETROPTS RACLIST(DIGTCERT) REFRESH
+
     - include_role:
         name: issue_operator_cmd
       vars:
