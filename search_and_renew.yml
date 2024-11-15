@@ -3,7 +3,7 @@
 ###############################################################################
 
 - name: Search for expiring certificate and renew it.
-  hosts: zos_host
+  hosts: all
   gather_facts: false
   environment: "{{ environment_vars }}"
   vars:

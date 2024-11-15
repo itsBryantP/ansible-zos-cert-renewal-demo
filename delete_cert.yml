@@ -3,7 +3,7 @@
 ###############################################################################
 
 - name: Delete z/OS certificate via TSO commands.
-  hosts: zos_host
+  hosts: all
   gather_facts: false
   environment: "{{ environment_vars }}"
 

@@ -3,7 +3,7 @@
 ###############################################################################
 
 - name: List certificates via TSO commands.
-  hosts: zos_host
+  hosts: all
   gather_facts: false
   environment: "{{ environment_vars }}"
 
