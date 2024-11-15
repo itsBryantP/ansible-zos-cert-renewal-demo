@@ -2,38 +2,28 @@
 # © Copyright IBM Corporation 2020, 2021
 ###############################################################################
 
-- hosts: all
-  collections:
-    - ibm.ibm_zos_core
+- name: List certificates via TSO commands.
+  hosts: all
   gather_facts: false
   environment: "{{ environment_vars }}"
-  vars:
-    owner_id: 'STCUSR'
-    cert_type: 'USER'
-    cert_label: 'zosConnectServerCert2'
-
 
   tasks:
-    - include_role:
-        name: issue_tso_cmd
-      vars:
-        task_description: 'Displaying cert {{cert_label}}'
-        command:
-          - RACDCERT ID({{ owner_id}}) LIST(LABEL('{{cert_label}}'))
-      when: cert_type == 'USER'
+    - ansible.builtin.set_fact:
+        cert_type: "{{ cert_type | default('USER') }}" # CERTAUTH, SITE or USER
+        cert_label: "{{ cert_label | default('zosConnectServerCert2') }}"
+        owner_id: "{{ owner_id | default('STCUSR') }}" # Only required if cert_type is USER
+         
+    - name: List cert, print results whether it exists or not.
+      block:
+        - name: 'Displaying cert {{ cert_label }}.'
+          vars:
+            format_cert_type: "{{ 'ID(' + owner_id + ')' if cert_type == 'USER' else cert_type }}"
+          ibm.ibm_zos_core.zos_tso_command:
+            commands: "RACDCERT {{ format_cert_type }} LIST(LABEL('{{ cert_label }}'))"
+          register: list_cert
+          failed_when: list_cert.output[0].rc > 4
 
-    - include_role:
-        name: issue_tso_cmd
-      vars:
-        task_description: 'Displaying cert {{cert_label}}'
-        command:
-          - RACDCERT CERTAUTH LIST(LABEL('{{cert_label}}'))
-      when: cert_type == 'CERTAUTH'
-
-    - include_role:
-        name: issue_tso_cmd
-      vars:
-        task_description: 'Displaying cert {{cert_label}}'
-        command:
-          - RACDCERT SITE LIST(LABEL('{{cert_label}}'))
-      when: cert_type == 'SITE'
+      always:
+        - name: Print results from list cert command.
+          ansible.builtin.debug:
+            var: list_cert.output[0].content

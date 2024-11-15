@@ -1,28 +1,23 @@
 ###############################################################################
-# © Copyright IBM Corporation 2020, 2021
+# © Copyright IBM Corporation 2024
 ###############################################################################
 
 - hosts: all
-  collections:
-    - ibm.ibm_zos_core
   gather_facts: false
   environment: "{{ environment_vars }}"
   vars:
     app_name: 'BAQSTRT'
 
   tasks:
-    - include_role:
-        name: issue_operator_cmd
-      vars:
-        task_description: 'Stop application'
-        command: "C {{app_name}}"
+    - name: 'Stop application'
+      ibm.ibm_zos_core.zos_operator:
+        cmd: "C {{app_name}}"
+      register: zos_operator_output
 
     - name: Wait for application to stop
-      wait_for:
+      ansible.builtin.wait_for:
         timeout: 3
 
-    - include_role:
-        name: issue_operator_cmd
-      vars:
-        task_description: 'Start application'
-        command: "S {{app_name}}"
+    - name: 'Start application'
+      ibm.ibm_zos_core.zos_operator:
+        cmd: "S {{app_name}}"
