@@ -10,9 +10,9 @@
   tasks:
     - name: Set vars
       ansible.builtin.set_fact:
-        owner_id: "{{ owner_id | default('STCUSR') }}"
+        owner_id: "{{ owner_id | default('IBMUSER') }}"
         cert_type: "{{ cert_type | default('USER') }}" # CERTAUTH, SITE, or USER
-        cert_label: "{{ cert_label | default('zosConnectServerCert2') }}"
+        cert_label: "{{ cert_label | default('zosConnectServerCert') }}"
         check_name: 'IBMRACF,RACF_CERTIFICATE_EXPIRATION'
         
     - name: Check if certificate is already absent and delete it only if it isn't.
