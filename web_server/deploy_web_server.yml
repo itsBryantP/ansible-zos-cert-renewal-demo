@@ -1,0 +1,52 @@
+###############################################################################
+# © Copyright IBM Corporation 2024
+###############################################################################
+
+- hosts: all
+  gather_facts: false
+  environment: "{{ environment_vars }}"
+  vars:
+    app_name: 'BAQSTRT'
+    proclib: 'USER.PROCLIB'
+    zcee_config_path: '/var/zosconnect2/servers/SERVER1'
+
+  tasks:
+    - name: Copy {{app_name}}.jcl file
+      ibm.ibm_zos_core.zos_copy:
+        src: "{{ playbook_dir }}/{{app_name}}.jcl"
+        dest: "{{proclib}}({{app_name}})"
+        force_lock: true
+        force: true
+
+    - name: Copy server.xml file
+      ibm.ibm_zos_core.zos_copy:
+        src: "{{ playbook_dir }}/server.xml"
+        dest: "{{ zcee_config_path }}/server.xml"
+        force: true
+        encoding:
+          from: ISO8859-1
+          to: ISO8859-1
+
+    - name: Copy app.war file
+      ibm.ibm_zos_core.zos_copy:
+        src: "{{ playbook_dir }}/bank.war"
+        dest: "{{ zcee_config_path }}/apps/bank.war"
+        is_binary: true
+        force: true
+
+    - name: Change permission so WLP can write output
+      shell: |
+        chmod 777 {{ zcee_config_path }}
+
+    - name: 'Stop application'
+      ibm.ibm_zos_core.zos_operator:
+        cmd: "C {{app_name}}"
+      register: zos_operator_output
+
+    - name: Wait for application to stop
+      ansible.builtin.wait_for:
+        timeout: 3
+
+    - name: 'Start application'
+      ibm.ibm_zos_core.zos_operator:
+        cmd: "S {{app_name}}"
