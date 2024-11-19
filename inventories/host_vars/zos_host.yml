@@ -16,10 +16,7 @@
 ################################################################################
 
 PYZ: "/usr/lpp/IBM/cyp/v3r11/pyz"
-ZOAU: "/usr/lpp/IBM/zoau/v1r3"
-# PYZ: "/allpython/3.11-3/usr/lpp/IBM/cyp/v3r11/pyz"
-# ZOAU: "/zoau/v1.2.5"
-
+ZOAU: "/usr/lpp/IBM/zoautil"
 ################################################################################
 # Do not configure, variable substituion will correctly set the
 # variable`ansible_python_interpreter`
