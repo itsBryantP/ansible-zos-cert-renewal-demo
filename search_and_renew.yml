@@ -13,11 +13,11 @@
   tasks:
     - name: Set variables
       ansible.builtin.set_fact:
-        cert_label: "{{ cert_label | default('zosConnectServerCert2') }}"
+        cert_label: "{{ cert_label | default('zosConnectServerCert') }}"
         cert_type: "{{ cert_type | default('USER') }}" # CERTAUTH, SITE, or USER
         sign_with: "{{ sign_with | default('CERTAUTH') }}" # CERTAUTH, SITE or Self
         sign_label: "{{ sign_label | default('IBM CA') }}" # Only required if sign_with is not 'Self'
-        owner_id: "{{ owner_id | default('STCUSR') }}"
+        owner_id: "{{ owner_id | default('IBMUSER') }}"
         keyring: "{{ keyring | default('Keyring.ZOSCONN') }}"
         new_expiry_date: "{{ new_expiry_date | default('2025-12-31') }}"
 
