@@ -9,18 +9,18 @@
 
   tasks:
     - ansible.builtin.set_fact:
-        owner_id: "{{ owner_id | default('STCUSR') }}"
-        cert_label: "{{ cert_label | default('zosConnectServerCert2') }}"
+        owner_id: "{{ owner_id | default('IBMUSER') }}"
+        cert_label: "{{ cert_label | default('zosConnectServerCert') }}"
         cert_type: "{{ cert_type | default('USER')}}" # CERTAUTH, SITE, or USER
         sign_with: "{{ sign_with | default('CERTAUTH') }}" # CERTAUTH, SITE, or Self
         sign_label: "{{ sign_label | default('IBM CA') }}" # Only required if sign_with is not 'Self'
         ou: "{{ ou | default('ANSIBLE CORE') }}"
-        cn: "{{ cn | default('share.centers.ihost.com:19080') }}" # Will default to FQDN, if undefined.
-        altname: "{{ altname | default('IP(192.148.8.225)') }}"
+        cn: "{{ cn | default('{{ansible_host}}:19080') }}" # Will default to FQDN, if undefined.
+        altname: "{{ altname | default('IP(9.114.209.152)') }}"
         country: "{{ country | default('US') }}"
-        expiry_date: "{{ expiry_date | default('2024-11-16') }}"
+        expiry_date: "{{ expiry_date | default('2024-11-30') }}"
         expiry_time: "{{ expiry_time | default('23:06:00') }}"
-        keyring: "{{ keyring | default('zos.ZOSCONNECT') }}"
+        keyring: "{{ keyring | default('Keyring.ZOSCONN') }}"
         check_name: "{{ check_name | default('IBMRACF,RACF_CERTIFICATE_EXPIRATION') }}"
 
     - name: Check if keyring to be created already exists.
