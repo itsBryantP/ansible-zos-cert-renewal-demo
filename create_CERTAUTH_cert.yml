@@ -1,0 +1,50 @@
+###############################################################################
+# © Copyright IBM Corporation 2024
+###############################################################################
+
+- hosts: all
+  gather_facts: false
+  environment: "{{ environment_vars }}"
+  vars:
+    owner_id: 'IBMUSER'
+    cert_label: 'IBM CA'
+    cn: '{{cert_label}}'
+    ou: 'ANSIBLE CORE'
+    country: 'US'
+    keyring: 'Keyring.ZOSCONN'
+    expiry_date: ''
+    check_name: 'IBMRACF,RACF_CERTIFICATE_EXPIRATION'
+  tasks:
+    - block:
+      - name: Check if keyring to be created already exists.
+        ibm.ibm_zos_core.zos_tso_command:
+          commands:
+            - RACDCERT LISTRING({{ keyring }}) ID({{ owner_id }})
+        register: keyring_check
+        changed_when: false
+        failed_when: keyring_check.output[0].rc > 4
+
+      - name: Create a new keyring via TSO commands, skip if it already exists.
+        ibm.ibm_zos_core.zos_tso_command:
+          commands:
+            - RACDCERT ADDRING({{ keyring }}) ID({{ owner_id }})
+            - RACDCERT LISTRING({{ keyring }}) ID({{ owner_id }})
+        when: "'IRRD114I Ring ' + keyring + ' does not exist.' in keyring_check.output[0].content[0]"
+
+      - name: 'Create new CA cert and connect to keyring'
+        ibm.ibm_zos_core.zos_tso_command:
+          commands:
+            - RACDCERT GENCERT CERTAUTH KEYUSAGE(CERTSIGN) SUBJECTSDN(CN('{{cn}}') OU('{{ou}}') C('{{country}}')) WITHLABEL('{{cert_label}}') NOTAFTER(DATE({{expiry_date}}))
+            - RACDCERT ID({{owner_id}}) CONNECT(CERTAUTH LABEL('{{cert_label}}') RING({{keyring}}))
+        when: not expiry_date == ''
+
+      - name: 'Create new CA cert and connect to keyring'
+        ibm.ibm_zos_core.zos_tso_command:
+          command:
+            - RACDCERT GENCERT CERTAUTH KEYUSAGE(CERTSIGN) SUBJECTSDN(CN('{{cn}}') OU('{{ou}}') C('{{country}}')) WITHLABEL('{{cert_label}}')
+            - RACDCERT ID({{owner_id}}) CONNECT(CERTAUTH LABEL('{{cert_label}}') RING({{keyring}}))
+        when: expiry_date == ''
+
+      - name: 'Run Health Checker'
+        ibm.ibm_zos_core.zos_operator:
+          cmd: "F HZSPROC,RUN,CHECK=({{check_name}})"
